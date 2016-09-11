@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /logs/
+Host: www.gazel-traffic.ru
+Sitemap: http://www.gazel-traffic.ru/sitemap.xml

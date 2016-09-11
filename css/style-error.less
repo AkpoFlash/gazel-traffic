@@ -1,0 +1,51 @@
+// out: style-error.css, sourcemap: false, compress: true
+
+@import (less) 'fonts/fonts';
+@import (less) 'variables';
+
+body{
+  font-family: 'Roboto';
+  margin: 0;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: bottom;
+}
+
+.wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: @white;
+}
+
+.content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content__title{
+  text-align: center;
+  line-height: 60px;
+  color: @black;
+  font-size: 40px;
+  border: 20px solid @aBlack;
+  box-sizing: border-box;
+  padding: 60px 100px;
+  box-shadow: inset 0 0 15px 0 @aBlack;
+  @media(max-width: 550px){
+    font-size: 30px;
+    border: none;
+    box-shadow: none;
+    padding: 20px;
+  }
+}
+
+.content__link{
+  color: @black;
+}
