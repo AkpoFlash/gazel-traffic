@@ -587,10 +587,6 @@ ul li {
   background-position: center;
   color: #fff;
 }
-.gazel-img {
-  object-fit: contain;
-  display: none;
-}
 .descriptions__article {
   box-sizing: border-box;
   border: 5px solid #ffd600;

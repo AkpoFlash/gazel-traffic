@@ -137,7 +137,6 @@
 
               </div>
               <article class="descriptions" id="services">
-                  <img src="img/gaz.png" class="gazel-img" alt="Грузовая газель" title="Грузовая газель-тент 4 метра">
                   <div class="descriptions__article">
                       <h2 class="descriptions__title">Грузоперевозки на автомобилях ГАЗель - правильный выбор!</h2>
                       <p class="descriptions__text">
