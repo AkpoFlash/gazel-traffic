@@ -40,6 +40,9 @@ $(document).ready(function() {
     $(window).on("scroll resize", function(){
         winScroll = $(this).scrollTop();
         winWidth = $(this).width();
+
+        $(".app-menu").css({"height":"100%"});
+
         scrollFade(".menu", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
         scrollFade(".telephone", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
         if(winWidth <= 750 - 15){
