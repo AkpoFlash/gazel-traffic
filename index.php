@@ -101,7 +101,7 @@
               <article class="properties" id="about">
                   <h2 class="properties__title">Вы можете заказать газель-тент</h2>
                   <div class="icons">
-                      <div class="icon icons_icon">
+                      <div class="icon icons__icon">
                           <i class="fa fa-archive"></i>
                           <div class="icon__title">
                               <strong>Грузоподъемность</strong>
@@ -111,7 +111,7 @@
                               Максимальный перевозимый вес - 1.5 тонны, позволяет осуществлять грузоперевозки в черте города.
                           </div>
                       </div>
-                      <div class="icon icons_icon">
+                      <div class="icon icons__icon">
                           <i class="fa fa-truck"></i>
                           <div class="icon__title">
                               <strong>Габариты</strong>
@@ -121,7 +121,7 @@
                               Размер кузова 4x1.9x1.5 идеально подходит для организации переездов, перевозки стройметериалов и прочих грузов.
                           </div>
                       </div>
-                      <div class="icon icons_icon">
+                      <div class="icon icons__icon">
                           <i class="fa fa-rub"></i>
                           <div class="icon__title">
                               <strong>Выгода</strong>
