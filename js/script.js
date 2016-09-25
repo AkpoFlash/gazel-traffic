@@ -19,14 +19,14 @@ function changeSection(classArray, winScroll){
 
     for(var i = 0; i < classArray.length && flag; i++) {
         if ($(classArray[i]).length > 0 && winScroll >= $(classArray[i]).offset().top - 101) {
-            $("a[href='" + classArray[i] + "']").addClass("menu__link--active");
+            $("a[href='" + classArray[i] + "']").addClass("menu__link--hover");
             classArray.splice(i,1);
             flag = false;
         }
     }
 
     for(var i = 0; i < classArray.length; i++){
-        $("a[href='" + classArray[i] + "']").removeClass("menu__link--active");
+        $("a[href='" + classArray[i] + "']").removeClass("menu__link--hover");
     }
 }
 
@@ -110,7 +110,8 @@ $(document).ready(function() {
     //smooth scroll
     $("a[href*='#']").on("click", function(e){
         var anchor = $(this);
-        $(".menu__link").removeClass("menu__link--active");
+        console.log($(".menu__link"));
+        $(".menu__link").removeClass("menu__link--active menu__link--hover");
         if(winWidth <= 750 - 15){
           $(".menu").removeClass("menu--open");
           $(".hamburger__line").removeClass("hamburger__line--open");
