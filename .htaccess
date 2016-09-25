@@ -1,0 +1,5 @@
+ErrorDocument 405 http://gazel-traffic.ru/405.html
+ErrorDocument 401 http://gazel-traffic.ru/401.html
+ErrorDocument 500 http://gazel-traffic.ru/500.html
+ErrorDocument 403 http://gazel-traffic.ru/403.html
+ErrorDocument 404 http://gazel-traffic.ru/404.html
