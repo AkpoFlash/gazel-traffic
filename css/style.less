@@ -62,7 +62,7 @@ input{
   cursor: pointer;
   border: 1px solid @white;
   color: @white;
-  &:hover{
+  &:hover, &:focus{
     background-color: @white;
     color: @black;
     text-decoration: none;
@@ -109,7 +109,7 @@ ul{
   border: 1px solid @white;
   text-decoration: none;
   color: @white;
-  &:hover{
+  &:hover, &:focus{
     background-color: @secondColor;
     border-color: @secondColor;
     color: @black;
@@ -479,18 +479,18 @@ ul{
   border-color: @black;
   color: @black;
   transition: all .3s ease-in-out;
-  &:hover{
+  &:hover, &:focus{
     background-color: @black;
     color: @white;
   }
 }
 
 .window--done{
-  background-color: @successColor;
+  background-color: @secondColor;
 }
 
 .window--error{
-  background-color: @errorColor;
+  background-color: @secondColor;
 }
 
 .window__text{
@@ -634,7 +634,7 @@ ul{
   display: inline-block;
   text-decoration: none;
   padding-top: 5px;
-  &:hover{
+  &:hover,&:focus{
     text-decoration: underline;
   }
 }
@@ -679,7 +679,7 @@ ul{
   box-shadow: 3px 5px 10px @gray;
   font-weight: bold;
   cursor: pointer;
-  &:hover{
+  &:hover, &:focus{
     box-shadow: 3px 5px 10px darken(@gray,15%);
   }
 }
@@ -714,7 +714,7 @@ ul{
 .footer__link{
   color: @linkColor;
   text-decoration: none;
-  &:hover{
+  &:hover, &:focus{
     text-decoration: underline;
   }
 }

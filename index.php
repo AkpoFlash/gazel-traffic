@@ -19,7 +19,7 @@
           <div class="window__text--error">
             Произошла ошибка, попробуйте отправить снова
           </div>
-          <input class="window__button--close" type="button" value="Ок">
+          <input class="window__button--close" type="button" value="Ок" autofocus>
         </div>
       </div>
         <div class="wrapper">
