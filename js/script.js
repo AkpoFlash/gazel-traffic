@@ -95,10 +95,10 @@ $(document).ready(function() {
         }
     });
 
-    $(".menu__link").on("mouseenter", function () {
+    $(".menu__link").on("mouseenter focus", function () {
         $(this).addClass("menu__link--hover");
     });
-    $(".menu__link").on("mouseleave", function () {
+    $(".menu__link").on("mouseleave blur", function () {
         $(this).toggleClass("menu__link--hover");
     });
 
