@@ -86,7 +86,7 @@ $(document).ready(function() {
             $(".calculator__cost").text("Необходимо вводить только цифры");
         }
         else {
-            if(hours < 2){
+            if(cost < 700){
                 $(".calculator__cost").text("Цена: " + hoursCost * 2 + " руб.");
             }
             else {
