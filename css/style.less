@@ -46,6 +46,8 @@ input{
   width: 200px;
   box-sizing: border-box;
   background-color: @white;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 .space{
@@ -190,6 +192,7 @@ ul{
 .menu__link--active,
 .menu__link--hover {
   text-decoration: none;
+  outline: none;
   &:after{
     content: '';
     background-color: @secondColor;
