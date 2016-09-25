@@ -102,7 +102,7 @@
                   <h2 class="properties__title">Вы можете заказать газель-тент</h2>
                   <div class="icons">
                       <div class="icon icons__icon">
-                          <i class="fa fa-archive"></i>
+                          <img src="img/weight.svg" alt="Максимальная грузоподъемность газели - 1.5 тонны">
                           <div class="icon__title">
                               <strong>Грузоподъемность</strong>
                           </div>
@@ -112,7 +112,7 @@
                           </div>
                       </div>
                       <div class="icon icons__icon">
-                          <i class="fa fa-truck"></i>
+                          <img src="img/truck.svg" alt="Удлиненная газель-тент - 4 метра">
                           <div class="icon__title">
                               <strong>Габариты</strong>
                           </div>
@@ -122,7 +122,7 @@
                           </div>
                       </div>
                       <div class="icon icons__icon">
-                          <i class="fa fa-rub"></i>
+                          <img src="img/rich.svg" alt="Выгодный заказ грузовой газели">
                           <div class="icon__title">
                               <strong>Выгода</strong>
                           </div>
