@@ -121,7 +121,7 @@
                           </div>
                       </div>
                       <div class="icon icons__icon">
-                          <img src="img/rich.svg" alt="Выгодный заказ грузовой газели">
+                          <img src="img/rich.svg" alt="Выгодно заказать грузовую газель">
                           <div class="icon__title">
                               <strong>Выгода</strong>
                           </div>
