@@ -1,0 +1,13 @@
+default:
+  description: "Prodaction"
+  tasks:
+    - prod
+img:
+  description: "Image"
+  tasks:
+    - 'concurrent:img'
+prod:
+  description: "Prodaction"
+  tasks:
+    - 'concurrent:prod'
+    - img
