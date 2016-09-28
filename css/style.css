@@ -109,8 +109,8 @@ input {
   width: 200px;
   box-sizing: border-box;
   background-color: #fff;
-  -webkit-appearance: none;
   border-radius: 0;
+  -webkit-appearance: none;
 }
 .space {
   display: block;
@@ -419,7 +419,7 @@ ul li {
 }
 @media (max-width: 750px) {
   .app-menu__calculator {
-    margin: 100px 20px 20px 50px;
+    margin: 50px 20px 20px 50px;
   }
 }
 .calculator__title {
