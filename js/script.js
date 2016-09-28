@@ -110,7 +110,7 @@ $(document).ready(function() {
     //smooth scroll
     $("a[href*='#']").on("click", function(e){
         var anchor = $(this);
-        console.log($(".menu__link"));
+
         $(".menu__link").removeClass("menu__link--active menu__link--hover");
         if(winWidth <= 750 - 15){
           $(".menu").removeClass("menu--open");
