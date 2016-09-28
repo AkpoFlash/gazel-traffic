@@ -16,7 +16,7 @@ module.exports = {
 
   styles: {
     files: [
-      'css/*.scss'
+      'css/*.less'
     ],
     tasks: [
       'less'
