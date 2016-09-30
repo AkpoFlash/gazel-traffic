@@ -9,5 +9,6 @@ img:
 prod:
   description: "Prodaction"
   tasks:
-    - 'concurrent:prod'
+    - 'concurrent:prodFirst'
+    - 'concurrent:prodSecond'
     - img
