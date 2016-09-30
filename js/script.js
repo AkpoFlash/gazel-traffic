@@ -1,8 +1,10 @@
+"use strict";
+
 var winHeight = $(window).height();
 var winWidth = $(window).width();
 var winScroll = $(this).scrollTop();
-var hoursCost = 350;
-var kilometersCost = 12;
+var HOURS_COST = 350;
+var KILOMETERS_COST = 12;
 
 
 var scrollFade = function(className, inColor, outColor){
@@ -81,13 +83,13 @@ $(document).ready(function() {
     $("#btn-cost").on("click", function(){
         var hours = $("#city").val();
         var kilometers = $("#track").val();
-        var cost = hoursCost * hours + kilometersCost * kilometers;
+        var cost = HOURS_COST * hours + KILOMETERS_COST * kilometers;
         if(isNaN(cost) || cost == 0){
             $(".calculator__cost").text("Необходимо вводить только цифры");
         }
         else {
             if(cost < 700){
-                $(".calculator__cost").text("Цена: " + hoursCost * 2 + " руб.");
+                $(".calculator__cost").text("Цена: " + HOURS_COST * 2 + " руб.");
             }
             else {
                 $(".calculator__cost").text("Цена: " + cost + " руб.");
