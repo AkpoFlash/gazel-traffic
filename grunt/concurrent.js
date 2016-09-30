@@ -4,7 +4,11 @@ module.exports = {
     limit: 3
   },
 
-  prod: [
+  prodFirst: [
+    'clean'
+  ],
+
+  prodSecond: [
     'less',
     'uglify'
   ],

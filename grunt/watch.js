@@ -10,6 +10,7 @@ module.exports = {
       'js/*.js'
     ],
     tasks: [
+      'clean:scripts',
       'uglify'
     ]
   },
@@ -19,6 +20,7 @@ module.exports = {
       'css/*.less'
     ],
     tasks: [
+      'clean:styles',
       'less'
     ]
   },
