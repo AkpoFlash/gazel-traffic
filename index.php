@@ -171,7 +171,7 @@
 
               </div>
               <article class="communication" id="communication">
-                  <div class="contact" id="contact">
+                  <article class="contact" id="contact">
                       <h3 class="contact__title">Свяжитесь с нами</h3>
                       <ul class="contact__list">
                           <li class="contact__element">
@@ -183,8 +183,8 @@
                               <a class="contact__link" href="mailto:info@gazel-traffic.ru" title="Email по которому можно заказать грузовую газель: info@gazel-traffic.ru" alt="Email по которому можно заказать грузовую газель: info@gazel-traffic.ru">info@gazel-traffic.ru</a>
                           </li>
                       </ul>
-                  </div>
-                  <div class="order communication__order">
+                  </article>
+                  <article class="order communication__order">
                       <h3 class="order__title">Оставьте заказ</h3>
                       <form class="form form__order" action="index.php" method="post">
                           <input class="form__input" type="text" name="name" id="name" placeholder="Имя *" required>
@@ -192,7 +192,7 @@
                           <textarea class="form__textarea" name="message" id="message" placeholder="Сообщение *" required></textarea>
                           <input class="form__submit" type="submit" name="order_sub" id="order_sub" value="Отправить">
                       </form>
-                  </div>
+                  </article>
               </article>
             </main>
             <div class="space">
