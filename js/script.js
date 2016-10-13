@@ -321,6 +321,9 @@ document.addEventListener("DOMContentLoaded",function(){
   });
 
   windowButtonClose.addEventListener("click", function(){
-    removeClass(windowPopupText, "window__text--done window__text--error");
+    removeClass(ajaxAlertPopup, "ajax-alert-popup--open");
+    removeClass(windowPopup, "window--done window--error");
+    document.querySelector(".window__text--done").style.display = "none";
+    document.querySelector(".window__text--error").style.display = "none";
   });
 });
