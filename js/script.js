@@ -7,7 +7,6 @@ var XHR             = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDom
 var HOURS_COST      = 350;
 var KILOMETERS_COST = 12;
 
-
 function scrollFade(className, inColor, outColor){
   var elements = document.querySelectorAll(className);
   var i = 0;
@@ -228,10 +227,43 @@ document.addEventListener("DOMContentLoaded",function(){
   for(var i = 0; i < allAnchorLinks.length; i++){
     allAnchorLinks[i].addEventListener("click",function(e){
       var anchor                    = this;
-      var currentPositionToTop      = window.pageYOffset;
-      var currentPositionToElement  = Math.round(document.querySelector(anchor.hash).getBoundingClientRect().top,0);
       var start                     = null;
+      var offsetBeforeElement       = 75;
       var speed                     = 0.75;
+      var currentPositionToTop      = window.pageYOffset;
+      var documentPositionToElement = Math.round(document.querySelector(anchor.hash).offsetTop,0) - offsetBeforeElement;
+      location.hash                 = anchor.hash;
+
+      window.requestAnimationFrame(step);
+      function step(time){
+        var progress          = 0;
+        var finalDestination  = 0;
+        
+        if(start === null){
+          start = time;
+        }
+
+        progress = time - start;
+
+        if(documentPositionToElement - currentPositionToTop < 0 - offsetBeforeElement){
+          finalDestination = Math.max(
+            currentPositionToTop - progress/speed,
+            documentPositionToElement
+          );
+        }
+        else{
+          finalDestination = Math.min(
+            currentPositionToTop + progress/speed,
+            documentPositionToElement
+          );
+        }
+
+        window.scrollTo(0, finalDestination);
+
+        if(finalDestination != documentPositionToElement){
+          window.requestAnimationFrame(step);
+        }
+      }
 
       for(var j = 0; j < menuLinks.length; j++){
         removeClass(menuLinks[j], "menu__link--active menu__link--hover");
@@ -247,40 +279,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
       if(hasClass(anchor, "menu__link")){
         addClass(anchor, "menu__link--active");
-      }
-
-      window.requestAnimationFrame(step);
-      function step(time){
-        var progress;
-        var finalDestination;
-
-        if(start === null){
-          start = time;
-        }
-
-        progress = time - start;
-
-        if(currentPositionToElement < 0){
-          finalDestination = Math.max(
-            currentPositionToTop - progress/speed,
-            currentPositionToTop + currentPositionToElement
-          );
-        }
-        else{
-          finalDestination = Math.min(
-            currentPositionToTop + progress/speed,
-            currentPositionToTop + currentPositionToElement
-          );
-        }
-
-        window.scrollTo(0, finalDestination);
-
-        if(finalDestination != currentPositionToTop + currentPositionToElement){
-          window.requestAnimationFrame(step);
-        }
-        else{
-          location.hash = anchor.hash;
-        }
       }
 
       e.preventDefault();
