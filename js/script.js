@@ -1,170 +1,326 @@
 "use strict";
 
-var winHeight = $(window).height();
-var winWidth = $(window).width();
-var winScroll = $(this).scrollTop();
-var HOURS_COST = 350;
+var winHeight       = document.documentElement.clientHeight;
+var winWidth        = document.documentElement.clientWidth;
+var winScroll       = window.pageYOffset || document.documentElement.scrollTop;
+var XHR             = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+var HOURS_COST      = 350;
 var KILOMETERS_COST = 12;
 
 
-var scrollFade = function(className, inColor, outColor){
+function scrollFade(className, inColor, outColor){
+  var elements = document.querySelectorAll(className);
+  var i = 0;
+
   if(winScroll > winHeight - 50){
-      $(className).css({"backgroundColor": inColor});
+    for(i = 0; i < elements.length; i++){
+      elements[i].style.backgroundColor = inColor;
+    }
   }
   else{
-      $(className).css({"backgroundColor": outColor});
+    for(i = 0; i < elements.length; i++){
+      elements[i].style.backgroundColor = outColor;
+    }
   }
 }
 
-function changeSection(classArray, winScroll){
-    var flag = true;
+function changeSection(idArray, winScroll){
+  var flag = true;
 
-    for(var i = 0; i < classArray.length && flag; i++) {
-        if ($(classArray[i]).length > 0 && winScroll >= $(classArray[i]).offset().top - 101) {
-            $("a[href='" + classArray[i] + "']").addClass("menu__link--hover");
-            classArray.splice(i,1);
-            flag = false;
-        }
-    }
+  // Clear hover class on nav section, but didn't action class.
+  for(var i = 0; i < idArray.length; i++){
+    var navLink = document.querySelector("a[href='" + idArray[i] + "']");
 
-    for(var i = 0; i < classArray.length; i++){
-        $("a[href='" + classArray[i] + "']").removeClass("menu__link--hover");
+    removeClass(navLink,"menu__link--hover");
+  }
+
+  for(var i = 0; i < idArray.length && flag; i++) {
+    var pageSection = document.querySelector(idArray[i]);
+
+    if (winScroll >= pageSection.offsetTop - 101) {
+      var navLink = document.querySelector("a[href='" + idArray[i] + "']");
+
+      addClass(navLink,"menu__link--hover");
+      idArray.splice(i,1);
+      flag = false;
     }
+  }
 }
 
+function changeNav(){
+  winScroll = window.pageYOffset || document.documentElement.scrollTop;
+  winWidth  = document.documentElement.clientWidth;
 
-$(document).ready(function() {
+  scrollFade(".menu", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
+  scrollFade(".telephone", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
 
-    $(".header").css({"height": winHeight});
-    $(".app-menu").css({"height":winHeight});
+  if(winWidth <= 750 - 15){
+    scrollFade(".menu__element", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
+  }
+  else{
+    scrollFade(".menu__element", "transparent", "transparent");
+  }
 
-    //fade menu
-    $(window).on("scroll resize", function(){
-        winScroll = $(this).scrollTop();
-        winWidth = $(this).width();
+  changeSection(["#contact", "#services","#about"],winScroll);
+}
 
-        $(".app-menu").css({"height":"100%"});
+function closeNotificationPoopup(){
+  removeClass(document.querySelector(".notification-popup"), "notification-popup--open");
+}
 
-        scrollFade(".menu", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
-        scrollFade(".telephone", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
-        if(winWidth <= 750 - 15){
-          scrollFade(".menu__element", "rgba(0,0,0,1)", "rgba(0,0,0,0.5)");
-        }
-        else{
-          scrollFade(".menu__element", "transparent", "transparent");
-        }
-        changeSection(["#contact", "#services","#about"],winScroll);
-    });
+function openCloseCalculator(){
+  if(hasClass(document.querySelector(".app-menu"),"app-menu--open")){
+    removeClass(document.querySelector(".app-menu"),"app-menu--open");
+    removeClass(document.querySelector(".blind"), "blind--open");
+    removeClass(document.querySelector(".blind__line1"),"blind__line1--open");
+    removeClass(document.querySelector(".blind__line2"),"blind__line2--open");
+  }
+  else{
+    addClass(document.querySelector(".app-menu"),"app-menu--open");
+    addClass(document.querySelector(".blind"),"blind--open");
+    addClass(document.querySelector(".blind__line1"),"blind__line1--open");
+    addClass(document.querySelector(".blind__line2"),"blind__line2--open");
+  }
+}
 
-    // application menu
-    var delayPopup = setTimeout(function(){
-      $(".notification-popup").addClass("notification-popup--open");
-    },3000);
+function addClass(element, strClassesName){
+  var arClassesName = strClassesName.split(" ");
 
-    $(".notification-popup, .blind, .calculator").on("mouseleave", function(){
-      $(".notification-popup").removeClass("notification-popup--open");
-    });
+  for(var i = 0; i < arClassesName.length; i++){
+    element.className += " " + arClassesName[i];
+  }
 
-    $(".blind, .notification-popup").on("click", function(){
-        if($(".app-menu").hasClass("app-menu--open")){
-            $(".app-menu").removeClass("app-menu--open");
-            $(".blind").removeClass("blind--open");
-            $(".blind__line1").removeClass("blind__line1--open");
-            $(".blind__line2").removeClass("blind__line2--open");
-        }
-        else{
-            $(".app-menu").addClass("app-menu--open");
-            $(".blind").addClass("blind--open");
-            $(".blind__line1").addClass("blind__line1--open");
-            $(".blind__line2").addClass("blind__line2--open");
-        }
-    });
+  element.className = element.className.trim();
 
-    $("#btn-cost").on("click", function(){
-        var hours = $("#city").val();
-        var kilometers = $("#track").val();
-        var cost = HOURS_COST * hours + KILOMETERS_COST * kilometers;
-        if(isNaN(cost) || cost == 0){
-            $(".calculator__cost").text("Необходимо вводить только цифры");
-        }
-        else {
-            if(cost < 700){
-                $(".calculator__cost").text("Цена: " + HOURS_COST * 2 + " руб.");
-            }
-            else {
-                $(".calculator__cost").text("Цена: " + cost + " руб.");
-            }
-        }
-    });
+  return element.className;
+}
 
-    $(".menu__link").on("mouseenter focus", function () {
-        $(this).addClass("menu__link--hover");
-    });
-    $(".menu__link").on("mouseleave blur", function () {
-        $(this).toggleClass("menu__link--hover");
-    });
+function removeClass(element, strClassesName){
+  var arElementClasses  = element.className.trim().split(" ");
+  var arClassesName     = strClassesName.trim().split(" ");
+  element.className     = "";
 
-    $(".hamburger").on("click", function(){
-      $(".menu").toggleClass("menu--open");
-      $(".hamburger__line").toggleClass("hamburger__line--open");
-    });
-
-    //smooth scroll
-    $("a[href*='#']").on("click", function(e){
-        var anchor = $(this);
-
-        $(".menu__link").removeClass("menu__link--active menu__link--hover");
-        if(winWidth <= 750 - 15){
-          $(".menu").removeClass("menu--open");
-          $(".hamburger__line").removeClass("hamburger__line--open");
-        }
-
-        if($(this).hasClass("menu__link")){
-          $(this).addClass("menu__link--active");
-        }
-
-        $('html, body').stop().animate({
-                scrollTop: $(anchor.attr('href')).offset().top - 100
-            },
-            Math.abs($(anchor.attr('href')).offset().top - 100 - winScroll),
-            "swing"
-        );
-        e.preventDefault();
-    });
-
-    $("#order_sub").on("click",function(e){
-      var name = $("#name").val();
-      var tel = $("#tel").val();
-      var message = $("#message").val();
-      var obj = {
-        "name": name,
-        "tel": tel,
-        "message": message
-      };
-
-      if(name != "" && message != "" && tel != "") {
-          e.preventDefault();
-          $.ajax({
-              type: "POST",
-              url: "../include/ajax/order.php",
-              data: obj,
-              dataType: "json",
-              success: function () {
-                $(".ajax-alert-popup").addClass("ajax-alert-popup--open");
-                $(".window").addClass("window--done");
-                $(".window__text--done").css({"display":"block"});
-              },
-              error: function () {
-                $(".ajax-alert-popup").addClass("ajax-alert-popup--open");
-                $(".window").addClass("window--error");
-                $(".window__text--error").css({"display":"block"});
-              }
-          });
+  nextClass:  for(var i = 0; i < arElementClasses.length; i++){
+    for(var j = 0; j < arClassesName.length; j++){
+      if(arElementClasses[i] === arClassesName[j]){
+        continue nextClass;
       }
+
+    }
+    element.className += " " + arElementClasses[i];
+  }
+
+  element.className = element.className.trim();
+
+  return element.className;
+}
+
+function toggleClass(element, strClassesName){
+  var arClassesName = strClassesName.trim().split(" ");
+
+
+  var isSetClasses = arClassesName.every(function(currentValue, item, arr){
+    return hasClass(element, currentValue);
+  });
+
+  if(isSetClasses){
+    removeClass(element, strClassesName);
+  }
+  else{
+    addClass(element, strClassesName);
+  }
+
+  return isSetClasses;
+}
+
+function hasClass(element, strClassName){
+  var strElementClasses = " " + element.className.trim() + " ";
+  strClassName          = strClassName.trim();
+
+  if(~strElementClasses.indexOf(" " + strClassName + " ")){
+    return true;
+  }
+
+  return false;
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  var header            = document.querySelector(".header");
+  var appMenu           = document.querySelector(".app-menu");
+  var menu              = document.querySelector(".menu");
+  var hamburgerLines    = document.querySelectorAll(".hamburger__line");
+  var btnCost           = document.querySelector("#btn-cost");
+  var orderSub          = document.querySelector("#order_sub");
+  var notificationPopup = document.querySelector(".notification-popup");
+  var blind             = document.querySelector(".blind");
+  var calculator        = document.querySelector(".calculator");
+  var menuLinks         = document.querySelectorAll(".menu__link");
+  var windowButtonClose = document.querySelector(".window__button--close");
+  var windowPopup       = document.querySelector(".window");
+  var windowPopupText   = document.querySelector(".window__text");
+  var hamburger         = document.querySelector(".hamburger");
+  var ajaxAlertPopup    = document.querySelector(".ajax-alert-popup");
+  var allAnchorLinks    = document.querySelectorAll("a[href*='#']");
+
+  header.style.height   = winHeight + "px";
+  appMenu.style.height  = "100%";
+
+  //Events
+  window.addEventListener("scroll", changeNav);
+  window.addEventListener("resize", changeNav);
+
+  notificationPopup.addEventListener("mouseleave", closeNotificationPoopup);
+  blind.addEventListener("mouseleave", closeNotificationPoopup);
+  calculator.addEventListener("mouseleave", closeNotificationPoopup);
+
+  btnCost.addEventListener("click", function(){
+    var hours       = document.querySelector("#city").value;
+    var kilometers  = document.querySelector("#track").value;
+    var cost        = HOURS_COST * hours + KILOMETERS_COST * kilometers;
+
+    if(isNaN(cost) || cost == 0){
+      document.querySelector(".calculator__cost").innerHTML = "Необходимо вводить только цифры";
+    }
+    else {
+      if(cost < 700){
+        document.querySelector(".calculator__cost").innerHTML = "Цена: " + HOURS_COST * 2 + " руб.";
+      }
+      else {
+        document.querySelector(".calculator__cost").innerHTML = "Цена: " + cost + " руб.";
+      }
+    }
+  });
+
+  var delayPopup = setTimeout(function(){
+    addClass(notificationPopup, "notification-popup--open");
+  },3000);
+
+  blind.addEventListener("click", openCloseCalculator);
+  notificationPopup.addEventListener("click", openCloseCalculator);
+
+  for(var i = 0; i < menuLinks.length; i++){
+    menuLinks[i].addEventListener("mouseenter", function(){
+      addClass(this, "menu__link--hover");
     });
 
-    $(".window__button--close").on("click",function(){
-        $(".ajax-alert-popup").fadeOut(400);
-        $(".window__text").removeClass("window__text--done window__text--error");
+    menuLinks[i].addEventListener("focus", function(){
+      addClass(this, "menu__link--hover");
     });
+
+    menuLinks[i].addEventListener("mouseleave", function(){
+      removeClass(this, "menu__link--hover");
+    });
+
+    menuLinks[i].addEventListener("blur", function(){
+      removeClass(this, "menu__link--hover");
+    });
+  }
+
+  hamburger.addEventListener("click", function(){
+    toggleClass(menu, "menu--open");
+
+    for(var i = 0; i < hamburgerLines.length; i++){
+      toggleClass(hamburgerLines[i], "hamburger__line--open");
+    }
+  });
+
+  //smooth scroll
+  for(var i = 0; i < allAnchorLinks.length; i++){
+    allAnchorLinks[i].addEventListener("click",function(e){
+      var anchor                    = this;
+      var currentPositionToTop      = window.pageYOffset;
+      var currentPositionToElement  = Math.round(document.querySelector(anchor.hash).getBoundingClientRect().top,0);
+      var start                     = null;
+      var speed                     = 0.75;
+
+      for(var j = 0; j < menuLinks.length; j++){
+        removeClass(menuLinks[j], "menu__link--active menu__link--hover");
+      }
+
+      if(winWidth <= 750 - 15){
+        removeClass(menu, "menu--open");
+
+        for(var j = 0; j < hamburgerLines.length; j++){
+          removeClass(hamburgerLines[j], "hamburger__line--open");
+        }
+      }
+
+      if(hasClass(anchor, "menu__link")){
+        addClass(anchor, "menu__link--active");
+      }
+
+      window.requestAnimationFrame(step);
+      function step(time){
+        var progress;
+        var finalDestination;
+
+        if(start === null){
+          start = time;
+        }
+
+        progress = time - start;
+
+        if(currentPositionToElement < 0){
+          finalDestination = Math.max(
+            currentPositionToTop - progress/speed,
+            currentPositionToTop + currentPositionToElement
+          );
+        }
+        else{
+          finalDestination = Math.min(
+            currentPositionToTop + progress/speed,
+            currentPositionToTop + currentPositionToElement
+          );
+        }
+
+        window.scrollTo(0, finalDestination);
+
+        if(finalDestination != currentPositionToTop + currentPositionToElement){
+          window.requestAnimationFrame(step);
+        }
+        else{
+          location.hash = anchor.hash;
+        }
+      }
+
+      e.preventDefault();
+    });
+  }
+
+  orderSub.addEventListener("click", function(e){
+    var name    = document.querySelector("#name").value;
+    var tel     = document.querySelector("#tel").value;
+    var message = document.querySelector("#message").value;
+
+    if(name != "" && message != "" && tel != "") {
+      e.preventDefault();
+      var xhr = new XHR();
+      var parameters = "name=" + encodeURIComponent(name) + "&" + "tel=" + encodeURIComponent(tel) + "&" + "message=" + encodeURIComponent(message);
+
+      xhr.open("POST", "../include/ajax/order.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(parameters);
+
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState != 4) return;
+
+        if(xhr.status == 200){
+          //success
+          addClass(ajaxAlertPopup, "ajax-alert-popup--open");
+          addClass(windowPopup, "window--done");
+          document.querySelector(".window__text--done").style.display = "block";
+        }
+        else{
+          //error
+          addClass(ajaxAlertPopup, "ajax-alert-popup--open");
+          addClass(windowPopup, "window--error");
+          document.querySelector(".window__text--error").style.display = "block";
+        }
+      }
+    }
+  });
+
+  windowButtonClose.addEventListener("click", function(){
+    removeClass(windowPopupText, "window__text--done window__text--error");
+  });
 });
