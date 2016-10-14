@@ -3,3 +3,12 @@ ErrorDocument 401 http://gazel-traffic.ru/401.html
 ErrorDocument 500 http://gazel-traffic.ru/500.html
 ErrorDocument 403 http://gazel-traffic.ru/403.html
 ErrorDocument 404 http://gazel-traffic.ru/404.html
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</IfModule>
+
+<ifModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript image/svg+xml application/x-font-ttf application/x-font-opentype application/font-woff application/font-woff2
+</ifModule>
