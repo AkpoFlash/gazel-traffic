@@ -1,8 +1,12 @@
-ErrorDocument 405 http://gazel-traffic.ru/405.html
-ErrorDocument 401 http://gazel-traffic.ru/401.html
-ErrorDocument 500 http://gazel-traffic.ru/500.html
-ErrorDocument 403 http://gazel-traffic.ru/403.html
-ErrorDocument 404 http://gazel-traffic.ru/404.html
+ErrorDocument 405 http://www.gazel-traffic.ru/405.php
+ErrorDocument 401 http://www.gazel-traffic.ru/401.php
+ErrorDocument 500 http://www.gazel-traffic.ru/500.php
+ErrorDocument 403 http://www.gazel-traffic.ru/403.php
+ErrorDocument 404 http://www.gazel-traffic.ru/404.php
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^gazel-traffic.ru
+RewriteRule (.*) http://www.gazel-traffic.ru/$1 [R=301,L]
 
 <IfModule mod_expires.c>
     ExpiresActive On
