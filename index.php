@@ -202,7 +202,7 @@
                     Copyright © <span class="footer__year">1997-<?=date("Y");?></span> <strong>Gazel-Traffic</strong>
                 </div>
                 <div class="footer__company">
-                    Сайт разработан и поддерживается компанией <strong><a href="http://just-space.ru" class="footer__link" title="Сайт разработан и поддерживается компанией JustSpace" alt="Сайт разработан и поддерживается компанией JustSpace">JustSpace</a></strong>
+                    Сайт разработан и поддерживается компанией <strong><a href="http://www.just-space.ru" class="footer__link" title="Сайт разработан и поддерживается компанией JustSpace" alt="Сайт разработан и поддерживается компанией JustSpace">JustSpace</a></strong>
                 </div>
             </footer>
         </div>
